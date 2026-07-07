@@ -1,8 +1,10 @@
 services:
   aniworld:
-    image: ghcr.io/phoenixthrush/aniworld-downloader:latest
+    # Use local build if you have modifications (including BBC iPlayer support)
+    build: .
+    # Or use pre-built image from GitHub Container Registry (uncomment to use instead of build)
+    # image: ghcr.io/phoenixthrush/aniworld-downloader:latest
     container_name: aniworld-downloader
-  # build: .
     ports:
       - "8080:8080"
     volumes:

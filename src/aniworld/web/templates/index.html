@@ -7,6 +7,7 @@
       <button class="segmented-btn active" id="labelAniworld" onclick="switchSite('aniworld')">AniWorld</button>
       <button class="segmented-btn" id="labelSto" onclick="switchSite('sto')">SerienStream</button>
       <button class="segmented-btn" id="labelMegakino" onclick="switchSite('megakino')">MegaKino</button>
+      <button class="segmented-btn" id="labelBbc" onclick="switchSite('bbc')">BBC iPlayer</button>
       {% if htv_enabled %}
       <button class="segmented-btn" id="labelHtv" onclick="switchSite('htv')">Hanime</button>
       {% endif %}
@@ -85,6 +86,7 @@
       window.ANIWORLD_LANGS = {{ lang_labels | tojson }};
       window.STO_LANGS = {{ sto_lang_labels | tojson }};
       window.MEGAKINO_LANGS = {{ megakino_lang_labels | tojson }};
+      window.BBC_LANGS = { "English": "English Subtitles", "None": "No Subtitles" };
       window.DEFAULT_WEB_LANGUAGE = {{ default_web_language | tojson }};
       window.HTV_ENABLED = {{ htv_enabled | tojson }};
     </script>

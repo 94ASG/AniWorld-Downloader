@@ -8,6 +8,8 @@ from .config import (
     ANIWORLD_EPISODE_PATTERN,
     ANIWORLD_SEASON_PATTERN,
     ANIWORLD_SERIES_PATTERN,
+    BBC_IPLAYER_EPISODE_PATTERN,
+    BBC_IPLAYER_SERIES_PATTERN,
     HANIME_TV_SERIES_PATTERN,
     HIANIME_EPISODE_PATTERN,
     HIANIME_SEASON_PATTERN,
@@ -21,6 +23,9 @@ from .models import (
     AniworldEpisode,
     AniworldSeason,
     AniworldSeries,
+    BBCiPlayerEpisode,
+    BBCiPlayerSeason,
+    BBCiPlayerSeries,
     HanimeTVEpisode,
     HanimeTVSeason,
     HanimeTVSeries,
@@ -32,6 +37,7 @@ from .models import (
     SerienstreamSeason,
     SerienstreamSeries,
 )
+
 
 
 @dataclass(frozen=True)
@@ -55,6 +61,14 @@ PROVIDERS = [
         series_cls=AniworldSeries,
         season_cls=AniworldSeason,
         episode_cls=AniworldEpisode,
+    ),
+    Provider(
+        name="BBC iPlayer",
+        series_pattern=BBC_IPLAYER_SERIES_PATTERN,
+        episode_pattern=BBC_IPLAYER_EPISODE_PATTERN,
+        series_cls=BBCiPlayerSeries,
+        season_cls=BBCiPlayerSeason,
+        episode_cls=BBCiPlayerEpisode,
     ),
     Provider(
         name="HanimeTV",

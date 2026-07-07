@@ -3,6 +3,7 @@ from .aniworld_to import (
     AniworldSeason,
     AniworldSeries,
 )
+from .bbc_iplayer import BBCiPlayerEpisode, BBCiPlayerSeason, BBCiPlayerSeries
 from .hanime_tv import HanimeTVEpisode, HanimeTVSeason, HanimeTVSeries
 from .hianime_to import HiAnimeEpisode, HiAnimeSeason, HiAnimeSeries
 from .megakino import MegaKinoEpisode
@@ -12,6 +13,9 @@ __all__ = [
     "AniworldSeries",
     "AniworldSeason",
     "AniworldEpisode",
+    "BBCiPlayerSeries",
+    "BBCiPlayerSeason",
+    "BBCiPlayerEpisode",
     "HanimeTVEpisode",
     "HanimeTVSeason",
     "HanimeTVSeries",
@@ -23,3 +27,4 @@ __all__ = [
     "HiAnimeEpisode",
     "MegaKinoEpisode",
 ]
+

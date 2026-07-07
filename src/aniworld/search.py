@@ -802,6 +802,37 @@ def search(is_aniworld=None):
         return curses.wrapper(menu_wrapper)
 
 
+def query_bbc_iplayer(keyword, content_type="tv", channel=None):
+    try:
+        from .models.bbc_iplayer.get_iplayer_api import GetIPlayerAPI
+        
+        api = GetIPlayerAPI()
+        
+        if content_type == "radio":
+            results = api.search_radio(keyword, channel)
+        else:
+            results = api.search_tv(keyword, channel)
+        
+        if not results:
+            return []
+        
+        formatted_results = []
+        for result in results:
+            formatted_results.append({
+                "pid": result.get("pid"),
+                "title": result.get("title"),
+                "episode": result.get("episode"),
+                "channel": result.get("channel"),
+                "name": result.get("title"),
+                "link": f"bbc-iplayer://{content_type}/{result.get('pid')}",
+            })
+        
+        return formatted_results
+    except Exception as e:
+        logger.error(f"Error searching BBC iPlayer: {e}")
+        return []
+
+
 if __name__ == "__main__":
     print("New series:", fetch_new_series())
     print("Popular series:", fetch_popular_series())

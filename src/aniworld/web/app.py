@@ -24,6 +24,7 @@ from ..search import (
     fetch_popular_animes,
     fetch_popular_movies,
     fetch_popular_series,
+    query_bbc_iplayer,
     query_megakino,
     query_s_to,
     random_anime,
@@ -891,6 +892,20 @@ def create_app(auth_enabled=False, sso_enabled=False, force_sso=False):
                             "url": f"https://serienstream.to{link}",
                         }
                     )
+        elif site == "bbc":
+            bbc_results = query_bbc_iplayer(keyword) or []
+            for item in bbc_results:
+                pid = item.get("pid", "")
+                if not pid:
+                    continue
+                results.append(
+                    {
+                        "title": item.get("title", "Unknown"),
+                        "url": f"bbc-iplayer://tv/{pid}",
+                        "episode": item.get("episode"),
+                        "channel": item.get("channel"),
+                    }
+                )
         else:
             # AniWorld search
             aw_results = aniworld_query(keyword) or []

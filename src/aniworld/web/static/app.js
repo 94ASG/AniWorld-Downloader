@@ -203,12 +203,13 @@ const htvTrendingGrid = document.getElementById("htvTrendingGrid");
 
 const segmentedThumb = document.getElementById("segmentedThumb");
 const htvEnabled = window.HTV_ENABLED;
-const sites = htvEnabled ? ["aniworld", "sto", "megakino", "htv"] : ["aniworld", "sto", "megakino"];
+const sites = htvEnabled ? ["aniworld", "sto", "megakino", "bbc", "htv"] : ["aniworld", "sto", "megakino", "bbc"];
 
 const thumbColors = {
   aniworld: { bg: "linear-gradient(135deg, #8b5cf6, #6d28d9)", shadow: "0 2px 8px rgba(139, 92, 246, 0.35)" },
   sto: { bg: "linear-gradient(135deg, #38bdf8, #2563eb)", shadow: "0 2px 8px rgba(56, 189, 248, 0.35)" },
   megakino: { bg: "linear-gradient(135deg, #ef4444, #b91c1c)", shadow: "0 2px 8px rgba(239, 68, 68, 0.35)" },
+  bbc: { bg: "linear-gradient(135deg, #1e1b4b, #312e81)", shadow: "0 2px 8px rgba(30, 27, 75, 0.35)" },
   htv: { bg: "linear-gradient(135deg, #ff4fa3, #db2777)", shadow: "0 2px 8px rgba(255, 79, 163, 0.35)" },
 };
 
@@ -216,14 +217,16 @@ function updateSliderState(site) {
   const labelAniworld = document.getElementById("labelAniworld");
   const labelSto = document.getElementById("labelSto");
   const labelMegakino = document.getElementById("labelMegakino");
+  const labelBbc = document.getElementById("labelBbc");
   const labelHtv = document.getElementById("labelHtv");
   if (labelAniworld) labelAniworld.classList.toggle("active", site === "aniworld");
   if (labelSto) labelSto.classList.toggle("active", site === "sto");
   if (labelMegakino) labelMegakino.classList.toggle("active", site === "megakino");
+  if (labelBbc) labelBbc.classList.toggle("active", site === "bbc");
   if (labelHtv) labelHtv.classList.toggle("active", site === "htv");
 
   if (!segmentedThumb) return;
-  const siteIds = { aniworld: "labelAniworld", sto: "labelSto", megakino: "labelMegakino", htv: "labelHtv" };
+  const siteIds = { aniworld: "labelAniworld", sto: "labelSto", megakino: "labelMegakino", bbc: "labelBbc", htv: "labelHtv" };
   const btn = document.getElementById(siteIds[site]);
   if (!btn) return;
   const track = btn.parentElement;
@@ -249,6 +252,7 @@ function switchSite(site) {
       aniworld: "AniWorld Downloader",
       sto: "SerienStream Downloader",
       megakino: "MegaKino Downloader",
+      bbc: "BBC iPlayer Downloader",
       htv: "Hanime Downloader",
     };
     heading.textContent = headings[site] || "AniWorld Downloader";
@@ -264,7 +268,9 @@ function switchSite(site) {
         ? "Search for series..."
         : site === "megakino"
           ? "Search MegaKino..."
-          : "Search for anime...";
+          : site === "bbc"
+            ? "Search BBC iPlayer..."
+            : "Search for anime...";
 
   // Clear search results
   resultsDiv.innerHTML = "";
@@ -291,7 +297,9 @@ function rebuildLanguageSelect() {
       ? window.STO_LANGS || {}
       : currentSite === "megakino"
         ? window.MEGAKINO_LANGS || {}
-        : window.ANIWORLD_LANGS || {};
+        : currentSite === "bbc"
+          ? window.BBC_LANGS || {}
+          : window.ANIWORLD_LANGS || {};
   const previousValue = languageSelect.value;
   const preferredValue =
     currentSite === "megakino"

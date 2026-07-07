@@ -400,6 +400,16 @@ MEGAKINO_SERIES_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+BBC_IPLAYER_SERIES_PATTERN = re.compile(
+    r"^bbc-iplayer://(?:tv|radio)/[a-z0-9]+(?:\?.*)?/?$",
+    re.IGNORECASE,
+)
+
+BBC_IPLAYER_EPISODE_PATTERN = re.compile(
+    r"^bbc-iplayer://(?:tv|radio)/[a-z0-9]+(?:\?.*)?/?$",
+    re.IGNORECASE,
+)
+
 # -----------------------------
 # Directories
 # -----------------------------

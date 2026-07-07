@@ -4,10 +4,15 @@ WORKDIR /app
 
 RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
 
-# Install ffmpeg, Xvfb and system dependencies required by Chromium (patchright)
+# Install ffmpeg, Xvfb, get-iPlayer, and system dependencies required by Chromium (patchright)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     xvfb \
+    perl \
+    libwww-perl \
+    libxml-libxml-perl \
+    libjson-perl \
+    libmojolicious-perl \
     libnss3 \
     libnspr4 \
     libatk1.0-0 \
@@ -55,6 +60,10 @@ RUN pip install --no-cache-dir --upgrade pip
 
 # Copy the application source code
 COPY src/ /app/src/
+
+# Copy get-iPlayer script from the repository
+COPY get_iplayer-master/get_iplayer /usr/local/bin/get_iplayer
+RUN chmod +x /usr/local/bin/get_iplayer
 
 # Install the project into the image
 RUN pip install --no-cache-dir .
